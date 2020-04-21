@@ -1,9 +1,12 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module App ( startApp )
  where
 
 import           Control.Monad.Free
 import           Servant.Client.Free ( ClientF (Throw, RunRequest) )
 
+import Network.HTTP.Client as NHC
 import Network.HTTP.Client ( newManager ,
                              defaultManagerSettings,
                              httpLbs)
@@ -21,26 +24,13 @@ import Handler ( getTopStories, getItem, getUser )
 
 import Constants ( uri )
 
+import           Data.Aeson            (Value)
+import qualified Data.ByteString.Char8 as DBC
+import qualified Data.Yaml             as DY
+import           Network.HTTP.Simple   as NHS
+
 
 startApp :: IO ()
---startApp = do
---  -- | Create an HTTP client manager (m) and handle the response (r)
---  m <- newManager tlsManagerSettings
---  u <- parseBaseUrl uri
---  r <- runClientM
---        (handler i)
---        (mkClientEnv m (BU.BaseUrl Https uri port path))
---
---  case r of
---    -- | Report any error (e) or display the item (i)
---    Left e -> do
---      putStrLn "\nError -"
---      print e
---    Right i -> do
---      putStrLn "\nSuccess -"
---      putStrLn "\nItem"
---      print i
-
 startApp = do
   putStrLn "\nStarting Hacker News client ..."
   nobuff
@@ -57,14 +47,19 @@ startApp = do
         let req' = requestToClientRequest u r
         putStrLn $ "Making request:\n" ++ show req'
 
-        res' <- httpLbs req' m
-        putStrLn $ "Got response:\n" ++ show res'
+        response <- NHC.httpLbs req' m
+        putStrLn $ "\nResponse Status Code:\n"           ++
+                   show (getResponseStatusCode response)
+        putStrLn $ "\nResponse Headers:\n"            ++
+                   show (getResponseHeaders response)
+        putStrLn $ "\nResponse Body:\n"            ++
+                   show (getResponseBody response)
 
     Pure n ->
-        putStrLn $ "ERROR: got pure result:\n" ++ show n
+        putStrLn $ "\nERROR: got pure result:\n" ++ show n
 
     Free (Throw err) ->
-        putStrLn $ "ERROR: got error right away:\n" ++ show err
+        putStrLn $ "\nERROR: got error right away:\n" ++ show err
 
 --    Free (StreamingRequest _req _k) ->
 --        putStrLn $ "ERROR: need to do streaming request"
