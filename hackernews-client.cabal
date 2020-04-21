@@ -1,0 +1,83 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 6a73a32d3a844f3b0ebf177223215e2accfe1139abc294a0c07a3708bfec3c38
+
+name:           hackernews-client
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/hackernews-client#readme>
+homepage:       https://github.com/githubuser/hackernews-client#readme
+bug-reports:    https://github.com/githubuser/hackernews-client/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2020 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/hackernews-client
+
+library
+  exposed-modules:
+      App
+  other-modules:
+      Paths_hackernews_client,
+      DotJSONSuffix,
+      ItemType,
+      Item,
+      User,
+      ItemIdWithJSONSuffix,
+      API,
+      Util,
+      HandlerDetails,
+      Handler,
+      Constants
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5,
+      aeson,
+      text,
+      free,
+      warp,
+      http-client,
+      http-client-tls,
+      http-api-data,
+      servant,
+      servant-server,
+      servant-client,
+      servant-client-core
+  default-language: Haskell2010
+
+executable hackernews-client-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_hackernews_client
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , hackernews-client
+  default-language: Haskell2010
+
+test-suite hackernews-client-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_hackernews_client
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , hackernews-client
+  default-language: Haskell2010
