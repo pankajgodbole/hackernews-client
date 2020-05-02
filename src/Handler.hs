@@ -1,4 +1,4 @@
-module Handler ( getTopStories, getItem, getUser)
+module Handler ( callAPI, getItem, getUser)
  where
 
 import Control.Monad.Free
@@ -10,10 +10,10 @@ import Item
 import User
 import HandlerDetails ( v0, item, user )
 
-getTopStories         ::
+callAPI               ::
  String               ->
  Free ClientF [ItemD]
-getTopStories p = v0 (DotJSONSuffix p) --(Just "pretty")
+callAPI a = v0 (DotJSONSuffix a) --(Just "pretty")
 
 getItem             ::
  String             ->
@@ -24,4 +24,5 @@ getUser             ::
  String             ->
  Free ClientF UserD
 getUser id = user (DotJSONSuffix id) --(Just "pretty")
+
 

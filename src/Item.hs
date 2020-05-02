@@ -55,7 +55,7 @@ module Item ( ItemD )
 
 import GHC.Generics ( Generic )
 
-import Data.Aeson.Types
+import Data.Aeson.Types (FromJSON)
 
 --import ItemType ( ItemTypeD )
 

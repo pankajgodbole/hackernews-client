@@ -22,7 +22,7 @@ v0                    ::
  Free ClientF [ItemD]
 
 item                ::
- DotJSONSuffixN     ->  -- ^ Value for the item id
+ DotJSONSuffixN     ->
  --Maybe String       ->
  Free ClientF ItemD
 

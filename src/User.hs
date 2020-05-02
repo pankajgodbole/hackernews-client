@@ -31,7 +31,7 @@ module User ( UserD )
  where
 
 import GHC.Generics     ( Generic )
-import Data.Aeson.Types
+import Data.Aeson.Types (FromJSON)
 
 import Item             ( ItemD )
 
@@ -42,7 +42,7 @@ data UserD = User
   karma     :: Int     ,  -- ^ The user's karma.
   created   :: Integer ,  -- ^ Creation date of the user, in Unix Time.
   delay     :: Int     ,  -- ^ Delay in minutes between a comment's creation and its visibility to other users.
-  submitted :: [ItemD]     -- ^ List of the user's stories, polls and comments.
+  submitted :: [ItemD]    -- ^ List of the user's stories, polls and comments.
  }
  deriving ( Show, Generic )
 

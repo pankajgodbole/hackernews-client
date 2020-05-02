@@ -34,7 +34,6 @@ library
       ItemType,
       Item,
       User,
-      ItemIdWithJSONSuffix,
       API,
       Util,
       HandlerDetails,
@@ -50,14 +49,18 @@ library
       yaml,
       free,
       warp,
+      conduit,
+      conduit-extra,
       http-conduit,
       http-client,
       http-client-tls,
+      http-types,
       http-api-data,
       servant,
       servant-server,
       servant-client,
-      servant-client-core
+      servant-client-core,
+      streamly
   default-language: Haskell2010
 
 executable hackernews-client-exe
